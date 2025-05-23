@@ -1,0 +1,38 @@
+name: build and deploy the java image
+on:
+  push:
+    branches:
+      - main
+jobs:
+  build: 
+    runs-on: ubuntu-latest
+    steps:
+      - name: ckeck on repo
+        uses: actions/check@v2
+      - name: jdk version
+        uses: actions/set-jdk@v2
+        with:
+          distribution: 'adopt'
+          jdk-version: '17'
+      - name: manaven clean package
+        run: mvn clean package
+        working-directory: javacode
+      - name: docker login
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build and push Docker image
+        run: build -t javasample:01 .
+        with:
+          context: javasample
+          file: java/Dockerfile
+          push: true
+          tags: |
+            ${{ secrets.DOCKER_USERNAME }}/javemayexample:${{ github.run_number }}
+
+      - name: Logout from Docker Hub
+        run: docker logout
+        
+        
