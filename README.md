@@ -28,8 +28,6 @@ mvn clean package
 3. Build Docker Image
 docker build -t <docker_username>/javaexample:local .
 
-4. Run the Container
-docker run -p 8080:8080 <docker_username>/javaexample:local
 
 CI/CD Pipeline (GitHub Actions)
 
@@ -84,7 +82,7 @@ jobs:
     - name: Logout from Docker
       run: docker logout
 
-GitHub Secrets
+🔑 GitHub Secrets
 
 You must configure the following repository secrets in GitHub:
 
@@ -92,14 +90,15 @@ DOCKER_USERNAME → Your Docker Hub username
 
 DOCKER_PASSWORD → Your Docker Hub password or access token
 
-Docker Image Naming
+📦 Docker Image Naming
 
 The image will be pushed to Docker Hub as:
 
 <docker_username>/javaexample:<github_run_number>
 
+4. Run the Container
+docker run -p 8080:8080 <docker_username>/javaexample:local
 
-Example:
 
-pavithra123/javaexample:15
+
 
