@@ -13,8 +13,8 @@ The project is integrated with **GitHub Actions** to automatically build and pus
 
 ## Build and Run Locally  
 
-### 1. Clone the repository  
-```bash
+1. Clone the repository  
+
 git clone https://github.com/<your-username>/<your-repo>.git
 cd <your-repo>/javasample
 
@@ -25,17 +25,18 @@ mvn clean package
 docker build -t <docker_username>/javaexample:local .
 
 
-CI/CD Pipeline (GitHub Actions)
+### CI/CD Pipeline (GitHub Actions)
 
-This repository includes a GitHub Actions workflow that:
+* This repository includes a GitHub Actions workflow that:
 
-Builds the project with Maven.
+* Builds the project with Maven.
 
-Builds a Docker image using the Dockerfile.
+* Builds a Docker image using the Dockerfile.
 
-Pushes the image to Docker Hub with a unique tag.
+* Pushes the image to Docker Hub with a unique tag.
 
-Workflow File: .github/workflows/build-docker.yml
+#### Workflow File: .github/workflows/build-docker.yml
+```
 name: build and push to Docker Hub
 
 on:
@@ -77,19 +78,20 @@ jobs:
 
     - name: Logout from Docker
       run: docker logout
+```
 
-🔑 GitHub Secrets
-
+#### GitHub Secrets
 You must configure the following repository secrets in GitHub:
+```
 
 DOCKER_USERNAME → Your Docker Hub username
 
 DOCKER_PASSWORD → Your Docker Hub password or access token
+```
 
-📦 Docker Image Naming
+#### Docker Image Naming
 
 The image will be pushed to Docker Hub as:
-
 <docker_username>/javaexample:<github_run_number>
 
 4. Run the Container
